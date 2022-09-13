@@ -1,12 +1,14 @@
 import React from "react";
+import Select from "../../common/Select";
 import Spinner from "../../common/Spinner";
-import { usePaymentsPage } from "./hooks";
+import { usePaymentsPage } from "./usePaymentPage";
 
 const PaymentsPage = () => {
 
 
 	const {
 		isLoading,
+		handleFilterChange,
 		paymentsData: { results },
 	} = usePaymentsPage();
 
@@ -18,6 +20,8 @@ const PaymentsPage = () => {
 					PAYMENTS PAGE
 				</h1>
 
+				<Select handleFilterChange={(e) => handleFilterChange(e)} />
+
 				{isLoading && <Spinner />}
 
 
@@ -26,14 +30,16 @@ const PaymentsPage = () => {
 						<tr>
 							<th scope="col">Date</th>
 							<th scope="col">Type</th>
+							<th scope="col">Status</th>
 							<th scope="col">Currency</th>
 							<th scope="col">Amount</th>
 						</tr>
 					</thead>
 					<tbody>
-						{results && results.map((payment) => (<tr>
+						{results && results.map((payment, i) => (<tr key={i}>
 							<td scope="row">{payment.paymentDate}</td>
 							<td scope="row">{payment.paymentType}</td>
+							<td scope="row">{payment.paymentStatus}</td>
 							<td scope="row">{payment.paymentCurrency}</td>
 							<td scope="row">{payment.paymentAmount}</td>
 						</tr>))}
