@@ -40,6 +40,7 @@ export const slice = createSlice({
 	}
 });
 
-export const selectPayments = state => state.payments;
+export const selectPayments = state => state.payments.results;
+export const filterPayments = state => state.payments.results.filter(payment => payment.paymentStatus === "P");
 
 export default slice.reducer;

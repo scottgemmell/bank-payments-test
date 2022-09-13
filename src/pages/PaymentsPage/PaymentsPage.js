@@ -1,5 +1,5 @@
 import React from "react";
-import Select from "../../common/Select";
+import Filter from "../../common/Filter";
 import Spinner from "../../common/Spinner";
 import { usePaymentsPage } from "./usePaymentPage";
 
@@ -8,8 +8,8 @@ const PaymentsPage = () => {
 
 	const {
 		isLoading,
-		handleFilterChange,
-		paymentsData: { results },
+		toggleShowPending,
+		filteredPaymentsData,
 	} = usePaymentsPage();
 
 
@@ -20,7 +20,7 @@ const PaymentsPage = () => {
 					PAYMENTS PAGE
 				</h1>
 
-				<Select handleFilterChange={(e) => handleFilterChange(e)} />
+				<Filter toggleShowPending={(e) => toggleShowPending(e)} />
 
 				{isLoading && <Spinner />}
 
@@ -36,7 +36,7 @@ const PaymentsPage = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{results && results.map((payment, i) => (<tr key={i}>
+						{filteredPaymentsData && filteredPaymentsData.map((payment, i) => (<tr key={i}>
 							<td scope="row">{payment.paymentDate}</td>
 							<td scope="row">{payment.paymentType}</td>
 							<td scope="row">{payment.paymentStatus}</td>

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectPayments, fetchPayments } from "../../store/slices/payments/paymentsSlice";
+import { filterPayments, selectPayments, fetchPayments } from "../../store/slices/payments/paymentsSlice";
 
 export const usePaymentsPage = () => {
 	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState(true);
+	const [showPending, setShowPending] = useState(null)
 
-	const handleFilterChange = (theName) => {
+	const toggleShowPending = (theName) => {
+		setShowPending(!showPending)
 		console.log("theName", theName.target.value)
 	}
 
@@ -15,12 +17,12 @@ export const usePaymentsPage = () => {
 		dispatch(fetchPayments()).then(() => setIsLoading(false))
 	}, [])
 
-	const paymentsData = useSelector(selectPayments);
+	const filteredPaymentsData = !!showPending ? useSelector(filterPayments) : useSelector(selectPayments);
 
 	return {
 		isLoading,
-		paymentsData,
-		handleFilterChange,
+		filteredPaymentsData,
+		toggleShowPending,
 	};
 };
 
