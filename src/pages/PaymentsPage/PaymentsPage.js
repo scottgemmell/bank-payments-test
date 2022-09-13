@@ -7,10 +7,13 @@ const PaymentsPage = () => {
 
 
 	const {
+		allData: { metaData, metaData: { hasMoreElements, nextPageIndex } },
 		isLoading,
 		toggleShowPending,
 		filteredPaymentsData,
+		showMoreElements,
 	} = usePaymentsPage();
+
 
 
 	return (
@@ -45,6 +48,8 @@ const PaymentsPage = () => {
 						</tr>))}
 					</tbody>
 				</table>}
+
+				{!!hasMoreElements && <button onClick={() => showMoreElements(nextPageIndex)} type="button" className="btn btn-primary">Load more</button>}
 			</div>
 		</div>
 	);

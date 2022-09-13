@@ -5,3 +5,9 @@ export const getPayments = async () => {
   
 	return response.data;
   };
+
+  export const getMorePayments = async (nextPageIndex) => {
+	const response = await get(`/payments?pageIndex=${nextPageIndex}`);
+  
+	return response.data;
+  };
